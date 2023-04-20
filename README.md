@@ -1,3 +1,3 @@
 # TouchAndRun
-Тестовый проект для BH Studio
-Исполнитель: Мартышин Станислав
+Test project for BH Studio  
+Developer: Martyshin Stanislav
