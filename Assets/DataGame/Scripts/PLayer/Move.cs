@@ -13,24 +13,27 @@ namespace Game.Player
         private CharacterController controller;
         private PlayerState state;
         private Coroutine caughtCororutine;
+
         private void OnValidate()
         {
-            if (GetComponent<CharacterController>())
-                controller = GetComponent<CharacterController>();
-            else
+            if (!GetComponent<CharacterController>())
                 Debug.LogError("Add CharacterController to Player");
 
             if (!GetComponent<PlayerState>())
                 gameObject.AddComponent<PlayerState>();
+        }
 
+        private void Awake()
+        {
+            controller = GetComponent<CharacterController>();
             state = GetComponent<PlayerState>();
         }
 
         private void FixedUpdate()
         {
-            if (state.Status != PlayerStatus.Caught && Input.GetMouseButton(0) && caughtCororutine == null)
+            if (state.Status != PlayerStatus.Spurt && Input.GetMouseButton(0) && caughtCororutine == null)
                 caughtCororutine = StartCoroutine(Caught());
-            else if (state.Status != PlayerStatus.Caught)
+            else if (state.Status != PlayerStatus.Spurt)
                 Run();
         }
 
@@ -47,12 +50,12 @@ namespace Game.Player
 
         private IEnumerator Caught()
         {
-            state.SetNewState(PlayerStatus.Caught);
+            state.SetNewState(PlayerStatus.Spurt);
             StartCoroutine(TimerCaught());
 
             Vector3 forward = transform.TransformDirection(Vector3.forward);
 
-            while (state.Status == PlayerStatus.Caught)
+            while (state.Status == PlayerStatus.Spurt)
             {
                 controller.SimpleMove(forward * speedCaught);
                 yield return new WaitForFixedUpdate();

@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 
 namespace Game.Player
@@ -11,15 +12,27 @@ namespace Game.Player
 
     public class PlayerState : MonoBehaviour
     {
-        private PlayerStatus status;
+        [SerializeField] private PlayerStatus status;
         public PlayerStatus Status
         {
             get { return status; }
         }
 
+        //[Server]
         public void SetNewState(PlayerStatus newStatus)
         {
             status = newStatus;
+        }
+
+        //[Command]
+        //private void cmdSetNewState(PlayerStatus status)
+        //{
+        //    SetNewState(status);
+        //}
+
+        public void NewStatus(PlayerStatus status)
+        {
+            SetNewState(status);
         }
     }
 }

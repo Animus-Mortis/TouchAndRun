@@ -6,16 +6,14 @@ namespace Game.Player
     {
         [SerializeField] private float speedRotation;
 
-        private void FixedUpdate()
+        private void Update()
         {
             RotationPlayer();
         }
 
         private void RotationPlayer()
         {
-            float mx = Input.GetAxis("Mouse X");
-
-            transform.Rotate(Vector3.up * mx * speedRotation);
+            transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * speedRotation);
         }
     }
 }
